@@ -39,7 +39,7 @@ public class Language implements Entities{
 	    @Column(name = "level")
 	    private int level;
 	    
-	    @ManyToOne()
+	    @ManyToOne(cascade = CascadeType.ALL)
 	    @JoinColumn(name="curriculum_vitae_id")
 	    private CurriculumVitae curriculumVitae;
 
