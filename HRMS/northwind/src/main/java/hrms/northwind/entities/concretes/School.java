@@ -47,7 +47,7 @@ public class School implements Entities{
 	@Column(name="graduate_date")
 	private LocalDate graduationDate = LocalDate.now();
 	
-	@ManyToOne()
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="curriculum_vitae_id")
     private CurriculumVitae curriculumVitae;
 
