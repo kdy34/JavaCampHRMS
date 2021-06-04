@@ -47,7 +47,7 @@ public class JobExperience implements Entities{
 	 @Column(name = "created_date")
 	 private LocalDate createdDate = LocalDate.now();
 	 
-	 @ManyToOne()
+	 @ManyToOne(cascade = CascadeType.ALL)
 	 @JoinColumn(name="curriculum_vitae_id")
 	 private CurriculumVitae curriculumVitae;
 
