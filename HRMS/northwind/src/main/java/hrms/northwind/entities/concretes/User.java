@@ -5,9 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import hrms.northwind.entities.abstracts.Entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 @Table(name="users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Entities{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
@@ -34,3 +36,4 @@ public class User implements Entities{
 	private boolean isActive;
 
 }
+
