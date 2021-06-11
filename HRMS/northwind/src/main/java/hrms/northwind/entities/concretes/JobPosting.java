@@ -2,14 +2,15 @@ package hrms.northwind.entities.concretes;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,12 +25,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="job_postings")
-@PrimaryKeyJoinColumn(name="id")
 public class JobPosting implements Entities{
 	
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	
+	 	@Column(name = "id")
+	 	private int id;
 	 	
 	 	@Column(name = "description")
 		private String description;
@@ -51,16 +53,17 @@ public class JobPosting implements Entities{
 	 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 		private LocalDate publishedAt;
 	 	
-	 	@ManyToOne()
-	 	@JoinColumn(name="jobs_id")
+	 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 	@JoinColumn(name="jobs_id", nullable = false)
 	 	private Jobs jobs;
 	 	
-	 	@ManyToOne()
-	    @JoinColumn(name = "employer_id")
+	 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	    @JoinColumn(name = "employer_id", nullable = false)
 	    private Employer employer;
 	 	
-	 	@ManyToOne()
-	    @JoinColumn(name = "city_id")
+	 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	    @JoinColumn(name = "city_id", nullable = false)
 	 	private City city;
 
 }
+
