@@ -2,10 +2,15 @@ package hrms.northwind.entities.concretes;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,10 +27,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobPostings"})
+@PrimaryKeyJoinColumn(name = "id")
 public class Employer extends User implements Entities {
-	
-	@Column(name="user_id")
-	private int userId;
 	
 	@Column(name="company_name")
 	private String companyName;
@@ -41,7 +44,8 @@ public class Employer extends User implements Entities {
 		super(id, email, password, isActive);
 	}
 	
-	 @OneToMany(mappedBy = "employer")
+	 @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)
+	 @NotFound(action=NotFoundAction.IGNORE)
 	 private List<JobPosting> jobPostings;
 
 }
